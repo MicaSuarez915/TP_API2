@@ -195,6 +195,58 @@ public class App {
 		}
 	}
 
+	public static void interfazQueryAreasComunes(Session session){
+		Query<AreaComun> getQuery = session.createQuery("FROM AreaComun", AreaComun.class);
+		List<AreaComun> areasComunes = getQuery.list();
+		for (AreaComun a : areasComunes){
+			System.out.println(a);
+		}
+	}
+
+	public static void interfazQueryReclamos(Session session){
+		Query<Reclamo> getQuery = session.createQuery("FROM Reclamo", Reclamo.class);
+		List<Reclamo> reclamos = getQuery.list();
+		for (Reclamo r : reclamos){
+			System.out.println(r);
+		}
+	}
+
+
+	//uniones
+	public static void DuenioUnidad(Session session, Duenio duenio, Unidad unidad){
+		duenio.agregarUnidad(unidad);
+		unidad.setDuenio(duenio);
+		session.beginTransaction();
+		session.save(duenio);
+		session.getTransaction().commit();
+	}
+
+	public static void UnidadInquilino(Session session, Unidad unidad, Inquilino inquilino){
+		unidad.addInquilinos(inquilino);
+		inquilino.setUnidad(unidad);
+		session.beginTransaction();
+		session.save(unidad);
+		session.getTransaction().commit();
+	}
+
+	public static void UnidadEdificio(Session session, Unidad unidad, Edificio edificio){
+		edificio.agregarUnidad(unidad);
+		unidad.setEdificio(edificio);
+		session.beginTransaction();
+		session.save(edificio);
+		session.getTransaction().commit();
+	}
+
+	public static void AreaComunEdificio(Session session, AreaComun areaComun, Edificio edificio){
+		edificio.addAreaComun(areaComun);
+		areaComun.setEdificio(edificio);
+		session.beginTransaction();
+		session.save(edificio);
+		session.getTransaction().commit();
+	}
+
+	//asigna unidades a edificio
+
 
 
 	//prueba de inicio de sesion y reclamo

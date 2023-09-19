@@ -1,9 +1,11 @@
 package model;
 
-public class Abierto {
+public class Abierto extends EstadoReclamo{
 
-	public Abierto() {
-		// TODO Auto-generated constructor stub
+	public Abierto( String medidasTomadas) {
+			super( medidasTomadas);
+			// TODO Auto-generated constructor stub
+
 	}
 
 }

@@ -34,6 +34,7 @@ public class Reclamo {
 		super();
 		this.descripcion = descripcion;
 		this.foto = foto;
+		this.estado=new Nuevo("Creacion de Reclamo");
 	}
 	public Reclamo(){
 
@@ -87,10 +88,7 @@ public class Reclamo {
 	public void setFoto(Foto foto) {
 		this.foto = foto;
 	}
-	
-	public void getEstadoReclamo() {
-		
-	}
+
 
 	public int getNumero() {
 		return numero;

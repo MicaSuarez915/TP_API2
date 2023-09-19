@@ -1,15 +1,12 @@
 package model;
 
 public class EstadoReclamo {
-	private Reclamo reclamo;
-	
-	public EstadoReclamo() {
+	private String medidasTomadas;
+
+	public EstadoReclamo(String medidasTomadas) {
 		// TODO Auto-generated constructor stub
-		
-	}
-	
-	public void getEstadoReclamo() {
-		
+		super();
+		this.medidasTomadas = medidasTomadas;
 	}
 
 

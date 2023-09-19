@@ -5,18 +5,10 @@ public class Desestimado extends EstadoReclamo{
 
 
 	public Desestimado(String medidasTomadas) {
-		super();
+		super(medidasTomadas);
 		this.medidasTomadas = medidasTomadas;
 	}
 
-	public String getMedidasTomadas() {
-		return medidasTomadas;
-	}
-
-	public void setMedidasTomadas(String medidasTomadas) {
-		this.medidasTomadas = medidasTomadas;
-	}
-	
 	
 
 }

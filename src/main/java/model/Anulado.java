@@ -1,16 +1,13 @@
 package model;
 
 public class Anulado extends EstadoReclamo{
-	
+
 	private String medidasTomadas;
 
-	public Anulado() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public Anulado(String medidasTomadas) {
-		super();
-		this.medidasTomadas = medidasTomadas;
+		super(medidasTomadas);
+		// TODO Auto-generated constructor stub
+
 	}
 
 	public String getMedidasTomadas() {
