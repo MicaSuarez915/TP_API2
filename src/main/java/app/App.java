@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 //import config.AppConfig;
@@ -53,7 +54,19 @@ public class App {
 		session.close();
 
 	}
-	
+
+	//lista edificios
+
+	public ArrayList<Edificio> edificios = new ArrayList<Edificio>();
+
+	//lista duenios
+
+	public ArrayList<Duenio> duenios = new ArrayList<Duenio>();
+
+	//Lista reclamos
+
+	public ArrayList<Reclamo> reclamos = new ArrayList<Reclamo>();
+
 
 	public static void createDuenios(Session session) {
 		Duenio duenio = new Duenio("Mario","Lopez",22837463, "mlopez", "mlopez");
@@ -87,6 +100,10 @@ public class App {
 	public static void createEdificios(Session session){
 		Edificio edificio1= new Edificio("Rivadavia 1657");
 		Edificio edificio2= new Edificio("Lima 506");
+
+		//this.edificios.add(edificio1);
+		//this.edificios.add(edificio2);
+
 
 		Transaction tx = session.beginTransaction();
 		session.save(edificio1);
@@ -256,7 +273,7 @@ public class App {
 		session.getTransaction().commit();
 	}
 
-	//asigna unidades a edificio
+
 
 
 
