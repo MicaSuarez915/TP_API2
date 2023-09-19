@@ -2,20 +2,33 @@ package model;
 
 import javax.persistence.*;
 
-//@Entity
-//@Table(name="reclamos_tabla")
+@Entity
+@Table(name="reclamos_tabla")
 public class Reclamo {
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@PrimaryKeyJoinColumn
-	//@Column(name="id", nullable=false)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@PrimaryKeyJoinColumn
+	@Column(name="id", nullable=false)
 	private int numero;
+	@ManyToOne
+	@JoinColumn(name = "id_unidad", referencedColumnName = "id")
 	private Unidad unidad;
+	@ManyToOne
+	@JoinColumn(name = "id_area_comun", referencedColumnName = "id")
 	private AreaComun areaComun;
 	private String descripcion;
+	@Embedded
 	private Foto foto;
+	@Embedded
 	private EstadoReclamo estado;
-	private Usuario usuario;
+	@ManyToOne
+	@JoinColumn(name = "duenio_id")
+	private Duenio duenio;
+
+	@ManyToOne
+	@JoinColumn(name = "inquilino_id")
+	private Inquilino inquilino;
+
 
 	public Reclamo(String descripcion, Foto foto) {
 		super();
@@ -25,6 +38,7 @@ public class Reclamo {
 	public Reclamo(){
 
 	}
+
 
 	@Override
 	public String toString() {
@@ -40,11 +54,15 @@ public class Reclamo {
 		this.unidad = unidad;
 	}
 
-	public void setUsuario(Usuario usuario){this.usuario=usuario;}
+	public void setDuenio(Duenio duenio){this.duenio=duenio;}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public Duenio getDuenio() {
+		return duenio;
 	}
+
+	public Inquilino getInquilino() {return inquilino;}
+
+	public void setInquilino(Inquilino inquilino) {this.inquilino = inquilino;}
 
 	public AreaComun getAreaComun() {
 		return areaComun;

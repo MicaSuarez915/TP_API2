@@ -16,13 +16,15 @@ public class App {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Configuration conf = new Configuration().configure();
+		conf.addAnnotatedClass(Usuario.class);
 		conf.addAnnotatedClass(Duenio.class);
 		conf.addAnnotatedClass(Inquilino.class);
-		conf.addAnnotatedClass(Usuario.class);
-		conf.addAnnotatedClass(Edificio.class);
+		conf.addAnnotatedClass(AreaComun.class);
 		conf.addAnnotatedClass(Unidad.class);
+		conf.addAnnotatedClass(Edificio.class);
+		conf.addAnnotatedClass(Reclamo.class);
 
-		
+
 		SessionFactory sf = conf.buildSessionFactory();
 		Session session = sf.openSession();
 
@@ -32,6 +34,16 @@ public class App {
 		createInquilino(session);
 		interfazQueryInquilino(session);
 
+		createEdificios(session);
+		interfazQueryEdificios(session);
+
+		createUnidades(session);
+		interfazQueryUnidades(session);
+
+
+
+
+
 		
 		session.close();
 
@@ -39,9 +51,9 @@ public class App {
 	
 
 	public static void createDuenios(Session session) {
-		Duenio duenio = new Duenio("Mario","Lopez",22837463);
-		Duenio duenio2 = new Duenio("Victoria","Castarelli",17938746);
-		Duenio duenio3 = new Duenio("Tamara","Villaruel",26738472);
+		Duenio duenio = new Duenio("Mario","Lopez",22837463, "mlopez", "mlopez");
+		Duenio duenio2 = new Duenio("Victoria","Castarelli",17938746, "vcast", "viviki");
+		Duenio duenio3 = new Duenio("Tamara","Villaruel",26738472, "tamiVillaruel", "pirinchito");
 		
 		Transaction tx = session.beginTransaction();
 		session.save(duenio);
@@ -52,6 +64,7 @@ public class App {
 	}
 
 
+	//creates
 	public static void createInquilino(Session session) {
 		Inquilino inquilino = new Inquilino("Rita","Marciel",23948573,"rmar","jdei");
 		Inquilino inquilino2 = new Inquilino("Candelaria","Kerlans",44738294,"cande","jfioep");
@@ -76,6 +89,76 @@ public class App {
 
 		tx.commit();
 	}
+
+	public static void createUnidades(Session session){
+		Unidad unidad1= new Unidad(5, 3, true, false);
+		Unidad unidad2= new Unidad(9, 1, true, true);
+		Unidad unidad3= new Unidad(5, 2, true, true);
+
+		Transaction tx = session.beginTransaction();
+		session.save(unidad1);
+		session.save(unidad2);
+		session.save(unidad3);
+
+		tx.commit();
+	}
+
+	public static void createUnidad1(Session session, Unidad unidad){
+		Transaction tx = session.beginTransaction();
+		session.save(unidad);
+		tx.commit();
+	}
+
+	public static void createAreaComun1(Session session, AreaComun areaComun){
+		Transaction tx = session.beginTransaction();
+		session.save(areaComun);
+		tx.commit();
+	}
+
+	public static void createAreasComunes(Session session){
+		AreaComun areaComun1= new AreaComun("Pasillo Principal", "Vestidor rojo");
+		AreaComun areaComun2= new AreaComun("Ascensores", "Ascensor 1");
+		AreaComun areaComun3= new AreaComun("Zoom", "Area cubierta");
+		AreaComun areaComun4= new AreaComun("Piscina", "Area descubierta");
+
+		Transaction tx = session.beginTransaction();
+		session.save(areaComun1);
+		session.save(areaComun2);
+		session.save(areaComun3);
+		session.save(areaComun4);
+
+		tx.commit();
+	}
+
+
+	public static void createReclamoAC(Session session, AreaComun areaComun, Duenio duenio){
+		Reclamo reclamo1 = new Reclamo("Reclamo 1",null);
+		areaComun.agregarReclamo(reclamo1);
+		reclamo1.setAreaComun(areaComun);
+		duenio.agregarReclamo(reclamo1);
+		reclamo1.setDuenio(duenio);
+		Transaction tx = session.beginTransaction();
+		session.save(areaComun);
+		session.save(duenio);
+		session.save(reclamo1);
+		session.getTransaction().commit();
+	}
+
+	public static void createReclamoU(Session session, Unidad unidad, Duenio duenio){
+		Reclamo reclamo1 = new Reclamo("Reclamo unidad",null);
+		unidad.agregarReclamo(reclamo1);
+		reclamo1.setUnidad(unidad);
+		duenio.agregarReclamo(reclamo1);
+		reclamo1.setDuenio(duenio);
+		Transaction tx = session.beginTransaction();
+		session.save(unidad);
+		session.save(duenio);
+		session.save(reclamo1);
+		session.getTransaction().commit();
+	}
+
+
+	//interfazQuery
 
 	public static void interfazQueryEdificios(Session session){
 		Query<Edificio> getQuery = session.createQuery("FROM Edificio", Edificio.class);
@@ -103,17 +186,6 @@ public class App {
 		}
 	}
 
-
-	public static void createUnidades(Session session){
-		Unidad unidad1= new Unidad(5, 3, true, false);
-		Unidad unidad2= new Unidad(9, 1, true, true);
-
-		Transaction tx = session.beginTransaction();
-		session.save(unidad1);
-		session.save(unidad2);
-
-		tx.commit();
-	}
 
 	public static void interfazQueryUnidades(Session session){
 		Query<Unidad> getQuery = session.createQuery("FROM Unidad", Unidad.class);

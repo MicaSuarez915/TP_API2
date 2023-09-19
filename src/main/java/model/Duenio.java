@@ -1,34 +1,31 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
 @Table(name="usuarios_tabla")
+@DiscriminatorValue("Dueño")
 public class Duenio extends Usuario{
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@PrimaryKeyJoinColumn
-	@Column(name="id", nullable=false)
-	private int id;
-	private String nombre;
-	private String apellido;
-	private int dni;
-	private String condicionUsuario="Duenio";
-	@Transient
-	private ArrayList<Reclamo> reclamosRealizados;
-	private ArrayList<Unidad> unidades;
 
+	@OneToMany(mappedBy = "duenio", cascade = CascadeType.ALL)
+	private List<Unidad> unidades = new ArrayList<Unidad>();
+
+	@OneToMany(mappedBy = "inquilino", cascade = CascadeType.ALL)
+	public List<Reclamo> reclamosRealizados = new ArrayList<Reclamo>();
 
 	public Duenio() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Duenio(String nombre, String apellido, int dni) {
+	public Duenio(String nombre, String apellido, int dni, String usuario, String contra) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
+		this.nombreUsuario = usuario;
+		this.contrasenia = contra;
 	}
 
 	public void agregarUnidad(Unidad unidad1) {
@@ -41,7 +38,24 @@ public class Duenio extends Usuario{
 		}
 	}
 
-	
+	public void getReclamosRealizados() {
+		for(Reclamo r: reclamosRealizados) {
+			r.toString();
+		}
+	}
+
+	public void agregarReclamo(Reclamo reclamo1) {
+		this.reclamosRealizados.add(reclamo1);
+	}
+
+	public void consultarReclamo(int numeroReclamo) {
+		for(Reclamo r: reclamosRealizados) {
+			if (r.getNumero()==numeroReclamo) {
+				r.toString();
+				break;
+			}
+		}
+	}
 	
 	
 

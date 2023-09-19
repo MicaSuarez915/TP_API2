@@ -12,14 +12,6 @@ public class EstadoReclamo {
 		
 	}
 
-	public Reclamo getReclamo() {
-		return reclamo;
-	}
 
-	public void setReclamo(Reclamo reclamo) {
-		this.reclamo = reclamo;
-	}
-	
-	
 
 }

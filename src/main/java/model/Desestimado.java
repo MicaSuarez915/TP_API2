@@ -3,9 +3,6 @@ package model;
 public class Desestimado extends EstadoReclamo{
 	private String medidasTomadas;
 
-	public Desestimado() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public Desestimado(String medidasTomadas) {
 		super();

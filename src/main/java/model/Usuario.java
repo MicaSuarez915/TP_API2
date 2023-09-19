@@ -1,30 +1,28 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 
-
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "condicion_usuario", discriminatorType = DiscriminatorType.STRING)
 public abstract class Usuario {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@PrimaryKeyJoinColumn(name = "id_usuario")
+	@Column(name="id_usuario", nullable=false)
+	public int id;
+	public String nombre;
+	public String apellido;
+	public int dni;
+	public String nombreUsuario;
+	public String contrasenia;
 
-	private int id;
-	private String nombre;
-	private String apellido;
-	private int dni;
-	private String nombreUsuario;
-	private String contrasenia;
-//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	private ArrayList<Reclamo> reclamosRealizados;
-	private String condicionUsuario;
+
+
 	
 	
 	public Usuario() {
@@ -66,11 +64,6 @@ public abstract class Usuario {
 	}
 
 
- 	public void getReclamosRealizados() {
-		for(Reclamo r: reclamosRealizados) {
-			r.toString();
-		}
-	}
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -88,25 +81,9 @@ public abstract class Usuario {
 		this.contrasenia = contrasenia;
 	}
 
-	public void setReclamosRealizados(ArrayList<Reclamo> reclamosRealizados) {
-		this.reclamosRealizados = reclamosRealizados;
-	}
-
 
 	
-	
-	public void hacerReclamo(Reclamo reclamo1) {
-		this.reclamosRealizados.add(reclamo1);
-	}
-	
-	public void consultarReclamo(int numeroReclamo) {
-		for(Reclamo r: reclamosRealizados) {
-			if (r.getNumero()==numeroReclamo) {
-				r.toString();
-				break;
-			}
-		}
-	}
+
 
 
 	@java.lang.Override

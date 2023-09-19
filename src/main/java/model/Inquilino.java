@@ -1,23 +1,18 @@
 package model;
 
-import java.util.ArrayList;
-
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="usuarios_tabla")
+@DiscriminatorValue("Inquilino")
 public class Inquilino extends Usuario{
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@PrimaryKeyJoinColumn
-	@Column(name="id", nullable=false)
-	private String nombre;
-	private String apellido;
-	private int dni;
-	private ArrayList<Reclamo> reclamosRealizados;
-	private String condicionUsuario="Inquilino";
-	private String nombreUsuario;
-	private String contrasenia;
+	@ManyToOne
+	@JoinColumn(name = "unidad_id")
+	private Unidad unidad;
+	@OneToMany(mappedBy = "inquilino", cascade = CascadeType.ALL)
+	public List<Reclamo> reclamosRealizados = new ArrayList<Reclamo>();
 
 	public Inquilino() {
 		// TODO Auto-generated constructor stub
@@ -31,6 +26,34 @@ public class Inquilino extends Usuario{
 		this.contrasenia = contrasenia;
 	}
 
+	public Unidad getUnidad() {
+		return unidad;
+	}
+
+	public void setUnidad(Unidad unidad) {
+		this.unidad = unidad;
+	}
+
+	public void getReclamosRealizados() {
+		for(Reclamo r: reclamosRealizados) {
+			r.toString();
+		}
+	}
+
+	public void agregarReclamo(Reclamo reclamo1) {
+		this.reclamosRealizados.add(reclamo1);
+	}
+
+	public void consultarReclamo(int numeroReclamo) {
+		for(Reclamo r: reclamosRealizados) {
+			if (r.getNumero()==numeroReclamo) {
+				r.toString();
+				break;
+			}
+		}
+	}
+
+	/**
 	public String getCondicionUsuario() {
 		return condicionUsuario;
 	}
@@ -49,5 +72,5 @@ public class Inquilino extends Usuario{
 				", nombreUsuario='" + nombreUsuario + '\'' +
 				", contrasenia='" + contrasenia + '\'' +
 				'}';
-	}
+	}**/
 }

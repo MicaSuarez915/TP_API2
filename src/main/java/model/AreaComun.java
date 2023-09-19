@@ -1,25 +1,30 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-
+@Entity
+@Table(name="area_comun_tabla")
 public class AreaComun {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@PrimaryKeyJoinColumn
+	@Column(name="id", nullable=false)
 	private int idAreaComun;
 	private String nombreAreaComun;
 	private String descripcion;
+	@ManyToOne
+	@JoinColumn(name = "edificio_id", referencedColumnName = "id")
+	private Edificio edificio;
+	@OneToMany(mappedBy = "areaComun", cascade = CascadeType.ALL)
+	private List<Reclamo> reclamos = new ArrayList<Reclamo>();
 
-	public AreaComun(int idAreaComun, String nombreAreaComun) {
+	public AreaComun(String nombreAreaComun, String descripcion) {
 		// TODO Auto-generated constructor stub
 		super();
-		this.idAreaComun=idAreaComun;
 		this.nombreAreaComun=nombreAreaComun;
+		this.descripcion = descripcion;
 	}
 
 	public String getNombreAreaComun() {
@@ -32,5 +37,23 @@ public class AreaComun {
 
 	public String getDescripcion() {
 		return descripcion;
+	}
+
+	public Edificio getEdificio() {
+		return edificio;
+	}
+
+	public void setEdificio(Edificio edificio) {
+		this.edificio = edificio;
+	}
+
+	public void getReclamos() {
+		for(Reclamo r: reclamos) {
+			r.toString();
+		}
+	}
+
+	public void agregarReclamo(Reclamo reclamo1) {
+		this.reclamos.add(reclamo1);
 	}
 }
