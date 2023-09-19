@@ -72,7 +72,9 @@ public class App {
 		Duenio duenio = new Duenio("Mario","Lopez",22837463, "mlopez", "mlopez");
 		Duenio duenio2 = new Duenio("Victoria","Castarelli",17938746, "vcast", "viviki");
 		Duenio duenio3 = new Duenio("Tamara","Villaruel",26738472, "tamiVillaruel", "pirinchito");
-		
+
+
+
 		Transaction tx = session.beginTransaction();
 		session.save(duenio);
 		session.save(duenio2);

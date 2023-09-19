@@ -19,7 +19,9 @@ public class Reclamo {
 	private String descripcion;
 	@Embedded
 	private Foto foto;
-	@Embedded
+	@ManyToOne
+	@JoinColumn(name = "id_estado_reclamo", referencedColumnName = "id_estado_reclamo")
+
 	private EstadoReclamo estado;
 	@ManyToOne
 	@JoinColumn(name = "duenio_id")

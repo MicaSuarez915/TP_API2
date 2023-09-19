@@ -20,6 +20,8 @@ public abstract class Usuario {
 	public int dni;
 	public String nombreUsuario;
 	public String contrasenia;
+	@Column(name = "condicion_usuario")
+	public String condicionUsuario;
 
 
 

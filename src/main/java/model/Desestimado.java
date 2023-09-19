@@ -1,14 +1,22 @@
 package model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="estado_reclamo_tabla")
+@DiscriminatorValue("Desestimado")
 public class Desestimado extends EstadoReclamo{
-	private String medidasTomadas;
 
 
 	public Desestimado(String medidasTomadas) {
-		super(medidasTomadas);
-		this.medidasTomadas = medidasTomadas;
+		super();
+		this.setMedidasTomadas(medidasTomadas);
 	}
 
-	
 
+	public Desestimado() {
+
+	}
 }
