@@ -2,7 +2,6 @@ package model;
 
 public class Anulado extends EstadoReclamo{
 
-	private String medidasTomadas;
 
 	public Anulado(String medidasTomadas) {
 		super(medidasTomadas);
@@ -10,12 +9,8 @@ public class Anulado extends EstadoReclamo{
 
 	}
 
-	public String getMedidasTomadas() {
-		return medidasTomadas;
-	}
+	public Anulado() {
 
-	public void setMedidasTomadas(String medidasTomadas) {
-		this.medidasTomadas = medidasTomadas;
 	}
 	
 	
