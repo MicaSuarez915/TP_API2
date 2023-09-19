@@ -43,7 +43,7 @@ public class Reclamo {
 
 	@Override
 	public String toString() {
-		return "Reclamo [unidad=" + unidad.toString() + ", areaComun=" + areaComun.toString() + ", descripcion=" + descripcion + ", foto="
+		return "Reclamo [descripcion=" + descripcion + ", foto="
 				+ foto + "]";
 	}
 

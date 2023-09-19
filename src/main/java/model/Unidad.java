@@ -38,7 +38,7 @@ public class Unidad {
 
     @Override
     public String toString() {
-        return "Unidad [piso=" + piso + ", numeroUnidad=" + numeroUnidad + "]";
+        return "Unidad [piso=" + this.piso + ", numeroUnidad=" + this.numeroUnidad + "]";
     }
 
     public int getPiso() {

@@ -9,6 +9,10 @@ public class EstadoReclamo {
 		this.medidasTomadas = medidasTomadas;
 	}
 
+	public EstadoReclamo(){
+
+	}
+
 
 
 }

@@ -40,7 +40,14 @@ public class App {
 		createUnidades(session);
 		interfazQueryUnidades(session);
 
+		createAreasComunes(session);
+		interfazQueryAreasComunes(session);
 
+		createReclamoAC(session);
+		interfazQueryReclamos(session);
+
+		createReclamoU(session);
+		interfazQueryReclamos(session);
 
 
 
@@ -131,8 +138,11 @@ public class App {
 	}
 
 
-	public static void createReclamoAC(Session session, AreaComun areaComun, Duenio duenio){
+	public static void createReclamoAC(Session session/**, AreaComun areaComun, Duenio duenio**/){
+		Duenio duenio = new Duenio("Mariano","Lopez",23456876, "marianlopez", "marianlopez");
+		AreaComun areaComun= new AreaComun("Jacuzzi", "Area cubierta");
 		Reclamo reclamo1 = new Reclamo("Reclamo 1",null);
+
 		areaComun.agregarReclamo(reclamo1);
 		reclamo1.setAreaComun(areaComun);
 		duenio.agregarReclamo(reclamo1);
@@ -144,15 +154,18 @@ public class App {
 		session.getTransaction().commit();
 	}
 
-	public static void createReclamoU(Session session, Unidad unidad, Duenio duenio){
+	public static void createReclamoU(Session session/**, AreaComun areaComun, Duenio duenio**/){
+		Inquilino inquilino = new Inquilino("Mariano","Lopez",23456876, "marianlopez", "marianlopez");
+		Unidad unidad= new Unidad(1, 3, true, true);
 		Reclamo reclamo1 = new Reclamo("Reclamo unidad",null);
+
 		unidad.agregarReclamo(reclamo1);
 		reclamo1.setUnidad(unidad);
-		duenio.agregarReclamo(reclamo1);
-		reclamo1.setDuenio(duenio);
+		inquilino.agregarReclamo(reclamo1);
+		reclamo1.setInquilino(inquilino);
 		Transaction tx = session.beginTransaction();
 		session.save(unidad);
-		session.save(duenio);
+		session.save(inquilino);
 		session.save(reclamo1);
 		session.getTransaction().commit();
 	}
