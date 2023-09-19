@@ -49,8 +49,6 @@ public class App {
 		createReclamoU(session);
 		interfazQueryReclamos(session);
 
-
-
 		
 		session.close();
 

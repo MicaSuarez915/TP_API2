@@ -1,9 +1,11 @@
 package model;
 
-public class Terminado {
+public class Terminado extends EstadoReclamo{
 
-	public Terminado() {
+	public Terminado(String medidasTomadas) {
 		// TODO Auto-generated constructor stub
+		super( medidasTomadas);
 	}
+
 
 }
