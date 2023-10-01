@@ -55,19 +55,9 @@ public class App {
 
 	}
 
-	//lista edificios
-
-	public ArrayList<Edificio> edificios = new ArrayList<Edificio>();
-
-	//lista duenios
-
-	public ArrayList<Duenio> duenios = new ArrayList<Duenio>();
-
-	//Lista reclamos
-
-	public ArrayList<Reclamo> reclamos = new ArrayList<Reclamo>();
 
 
+	//guardar en bd
 	public static void createDuenios(Session session) {
 		Duenio duenio = new Duenio("Mario","Lopez",22837463, "mlopez", "mlopez");
 		Duenio duenio2 = new Duenio("Victoria","Castarelli",17938746, "vcast", "viviki");
@@ -84,7 +74,6 @@ public class App {
 	}
 
 
-	//creates
 	public static void createInquilino(Session session) {
 		Inquilino inquilino = new Inquilino("Rita","Marciel",23948573,"rmar","jdei");
 		Inquilino inquilino2 = new Inquilino("Candelaria","Kerlans",44738294,"cande","jfioep");
@@ -188,7 +177,7 @@ public class App {
 	}
 
 
-	//interfazQuery
+	//Extrae datos bd
 
 	public static void interfazQueryEdificios(Session session){
 		Query<Edificio> getQuery = session.createQuery("FROM Edificio", Edificio.class);
