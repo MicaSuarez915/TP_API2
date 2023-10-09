@@ -25,6 +25,7 @@ public class App {
 		conf.addAnnotatedClass(Unidad.class);
 		conf.addAnnotatedClass(Edificio.class);
 		conf.addAnnotatedClass(Reclamo.class);
+		conf.addAnnotatedClass(EstadoReclamo.class);
 
 
 		SessionFactory sf = conf.buildSessionFactory();
