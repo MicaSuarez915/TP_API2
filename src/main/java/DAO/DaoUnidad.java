@@ -1,5 +1,6 @@
 package DAO;
 
+import model.AreaComun;
 import model.Unidad;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -36,12 +37,19 @@ public class DaoUnidad implements Daos{
     }
 
     @Override
-    public void update(Session session) throws Exception {
-
+    public void update(Session session, Object obj) throws Exception {
+        Unidad unidad= (Unidad) obj;
+        session.update(unidad);
     }
 
     @Override
     public void delete(Session session) throws Exception {
+        Unidad res = session.get(Unidad.class, 3);
+        if (res != null) {
+            session.beginTransaction();
+            session.delete(res);
+            session.getTransaction().commit();
+        }
 
     }
 }

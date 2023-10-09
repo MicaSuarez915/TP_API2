@@ -1,5 +1,6 @@
 package app;
 
+import DAO.*;
 import model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,11 +11,11 @@ import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-//import config.AppConfig;
+
 
 public class App {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		Configuration conf = new Configuration().configure();
 		conf.addAnnotatedClass(Usuario.class);
@@ -29,92 +30,35 @@ public class App {
 		SessionFactory sf = conf.buildSessionFactory();
 		Session session = sf.openSession();
 
-		createDuenios(session);
-		interfazQueryDuenio(session);
+		DaoDuenio dueños= new DaoDuenio();
+		dueños.save(session);
+		dueños.gelAll(session);
 
-		createInquilino(session);
-		interfazQueryInquilino(session);
 
-		createEdificios(session);
-		interfazQueryEdificios(session);
+		DaoAreaComun areaComun= new DaoAreaComun();
+		areaComun.save(session);
+		areaComun.gelAll(session);
 
-		createUnidades(session);
-		interfazQueryUnidades(session);
+		DaoInquilino inquilino= new DaoInquilino();
+		inquilino.save(session);
+		inquilino.gelAll(session);
 
-		createAreasComunes(session);
-		interfazQueryAreasComunes(session);
+		DaoEdificio edificio= new DaoEdificio();
+		edificio.save(session);
+		edificio.gelAll(session);
 
-		createReclamoAC(session);
-		interfazQueryReclamos(session);
+		DaoUnidad unidad= new DaoUnidad();
+		unidad.gelAll(session);
+		unidad.save(session);
 
-		createReclamoU(session);
-		interfazQueryReclamos(session);
+		DaoReclamo reclamo= new DaoReclamo();
+		reclamo.gelAll(session);
+		reclamo.save(session);
 
-		
 		session.close();
 
 	}
 
-
-
-	//guardar en bd
-	public static void createDuenios(Session session) {
-		Duenio duenio = new Duenio("Mario","Lopez",22837463, "mlopez", "mlopez");
-		Duenio duenio2 = new Duenio("Victoria","Castarelli",17938746, "vcast", "viviki");
-		Duenio duenio3 = new Duenio("Tamara","Villaruel",26738472, "tamiVillaruel", "pirinchito");
-
-
-
-		Transaction tx = session.beginTransaction();
-		session.save(duenio);
-		session.save(duenio2);
-		session.save(duenio3);
-		
-		tx.commit();
-	}
-
-
-	public static void createInquilino(Session session) {
-		Inquilino inquilino = new Inquilino("Rita","Marciel",23948573,"rmar","jdei");
-		Inquilino inquilino2 = new Inquilino("Candelaria","Kerlans",44738294,"cande","jfioep");
-		Inquilino inquilino3 = new Inquilino("Marcos","Reinals",40394827,"mmr","ksid");
-
-
-		Transaction tx = session.beginTransaction();
-		session.save(inquilino);
-		session.save(inquilino2);
-		session.save(inquilino3);
-
-		tx.commit();
-	}
-
-	public static void createEdificios(Session session){
-		Edificio edificio1= new Edificio("Rivadavia 1657");
-		Edificio edificio2= new Edificio("Lima 506");
-
-		//this.edificios.add(edificio1);
-		//this.edificios.add(edificio2);
-
-
-		Transaction tx = session.beginTransaction();
-		session.save(edificio1);
-		session.save(edificio2);
-
-		tx.commit();
-	}
-
-	public static void createUnidades(Session session){
-		Unidad unidad1= new Unidad(5, 3, true, false);
-		Unidad unidad2= new Unidad(9, 1, true, true);
-		Unidad unidad3= new Unidad(5, 2, true, true);
-
-		Transaction tx = session.beginTransaction();
-		session.save(unidad1);
-		session.save(unidad2);
-		session.save(unidad3);
-
-		tx.commit();
-	}
 
 	public static void createUnidad1(Session session, Unidad unidad){
 		Transaction tx = session.beginTransaction();
@@ -128,22 +72,7 @@ public class App {
 		tx.commit();
 	}
 
-	public static void createAreasComunes(Session session){
-		AreaComun areaComun1= new AreaComun("Pasillo Principal", "Vestidor rojo");
-		AreaComun areaComun2= new AreaComun("Ascensores", "Ascensor 1");
-		AreaComun areaComun3= new AreaComun("Zoom", "Area cubierta");
-		AreaComun areaComun4= new AreaComun("Piscina", "Area descubierta");
-
-		Transaction tx = session.beginTransaction();
-		session.save(areaComun1);
-		session.save(areaComun2);
-		session.save(areaComun3);
-		session.save(areaComun4);
-
-		tx.commit();
-	}
-
-
+	 //RECLAMO PARA UNIDADES Y PARA AREAS COMUNES
 	public static void createReclamoAC(Session session/**, AreaComun areaComun, Duenio duenio**/){
 		Duenio duenio = new Duenio("Mariano","Lopez",23456876, "marianlopez", "marianlopez");
 		AreaComun areaComun= new AreaComun("Jacuzzi", "Area cubierta");
@@ -177,58 +106,6 @@ public class App {
 	}
 
 
-	//Extrae datos bd
-
-	public static void interfazQueryEdificios(Session session){
-		Query<Edificio> getQuery = session.createQuery("FROM Edificio", Edificio.class);
-		List<Edificio> edificios = getQuery.list();
-		for (Edificio e : edificios){
-			System.out.println(e);
-		}
-	}
-
-	public static void interfazQueryDuenio(Session session) {
-		Query<Duenio> getQuery = session.createQuery("FROM Duenio", Duenio.class);
-//		getQuery.setFirstResult(1);
-//		getQuery.setMaxResults(2);
-		List<Duenio> usuarios = getQuery.list();
-		for (Usuario e : usuarios) {
-			System.out.println(e);
-		}
-	}
-
-	public static void interfazQueryInquilino(Session session) {
-		Query<Inquilino> getQuery = session.createQuery("FROM Inquilino", Inquilino.class);
-		List<Inquilino> usuarios = getQuery.list();
-		for (Usuario e : usuarios) {
-			System.out.println(e);
-		}
-	}
-
-
-	public static void interfazQueryUnidades(Session session){
-		Query<Unidad> getQuery = session.createQuery("FROM Unidad", Unidad.class);
-		List<Unidad> unidades = getQuery.list();
-		for (Unidad u : unidades){
-			System.out.println(u);
-		}
-	}
-
-	public static void interfazQueryAreasComunes(Session session){
-		Query<AreaComun> getQuery = session.createQuery("FROM AreaComun", AreaComun.class);
-		List<AreaComun> areasComunes = getQuery.list();
-		for (AreaComun a : areasComunes){
-			System.out.println(a);
-		}
-	}
-
-	public static void interfazQueryReclamos(Session session){
-		Query<Reclamo> getQuery = session.createQuery("FROM Reclamo", Reclamo.class);
-		List<Reclamo> reclamos = getQuery.list();
-		for (Reclamo r : reclamos){
-			System.out.println(r);
-		}
-	}
 
 
 	//uniones

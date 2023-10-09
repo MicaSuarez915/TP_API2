@@ -1,5 +1,6 @@
 package DAO;
 
+import model.AreaComun;
 import model.Duenio;
 import model.Usuario;
 import org.hibernate.Session;
@@ -40,12 +41,20 @@ public class DaoDuenio implements Daos{
     }
 
     @Override
-    public void update(Session session) throws Exception {
+    public void update(Session session, Object obj) throws Exception {
+        Duenio due= (Duenio) obj;
+        session.update(due);
 
     }
 
     @Override
     public void delete(Session session) throws Exception {
+        Duenio res = session.get(Duenio.class, 3);
+        if (res != null) {
+            session.beginTransaction();
+            session.delete(res);
+            session.getTransaction().commit();
+        }
 
     }
 }

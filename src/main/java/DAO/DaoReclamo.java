@@ -3,6 +3,7 @@ package DAO;
 import model.AreaComun;
 import model.Duenio;
 import model.Reclamo;
+import model.Unidad;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class DaoReclamo implements Daos{
+public class  DaoReclamo implements Daos{
     @Override
     public List<Object> gelAll(Session session) throws Exception {
         Query<Reclamo> getQuery = session.createQuery("FROM Reclamo", Reclamo.class);
@@ -41,12 +42,19 @@ public class DaoReclamo implements Daos{
     }
 
     @Override
-    public void update(Session session) throws Exception {
-
+    public void update(Session session, Object obj) throws Exception {
+        Reclamo reclamo= (Reclamo) obj;
+        session.update(reclamo);
     }
 
     @Override
     public void delete(Session session) throws Exception {
+        Reclamo res = session.get(Reclamo.class, 3);
+        if (res != null) {
+            session.beginTransaction();
+            session.delete(res);
+            session.getTransaction().commit();
+        }
 
     }
 }

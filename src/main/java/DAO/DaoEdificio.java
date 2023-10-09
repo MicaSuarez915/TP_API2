@@ -1,5 +1,6 @@
 package DAO;
 
+import model.AreaComun;
 import model.Edificio;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -35,12 +36,20 @@ public class DaoEdificio implements Daos{
     }
 
     @Override
-    public void update(Session session) throws Exception {
+    public void update(Session session, Object obj) throws Exception {
+        Edificio edificio= (Edificio) obj;
+        session.update(edificio);
 
     }
 
     @Override
     public void delete(Session session) throws Exception {
+        Edificio res = session.get(Edificio.class, 3);
+        if (res != null) {
+            session.beginTransaction();
+            session.delete(res);
+            session.getTransaction().commit();
+        }
 
     }
 }

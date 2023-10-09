@@ -35,12 +35,19 @@ public class DaoAreaComun implements Daos {
     }
 
     @Override
-    public void update(Session session) throws Exception {
-
+    public void update(Session session , Object obj) throws Exception {
+        AreaComun areaComun= (AreaComun) obj;
+        session.update(areaComun);
     }
 
     @Override
     public void delete(Session session) throws Exception {
+        AreaComun res = session.get(AreaComun.class, 3);
+        if (res != null) {
+            session.beginTransaction();
+            session.delete(res);
+            session.getTransaction().commit();
+        }
 
     }
 }
