@@ -1,5 +1,5 @@
 package controller;
-
+import model.*;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -30,19 +30,24 @@ import javax.persistence.EntityManager;
 @RequestMapping("/TP_API2")
 public class EdificioController {
 
+    @Autowired
     private IEdificioService edificioService;
 
-    private CallableStatement.CallableStatementParamInfo entityManager;
-    Session currentSession= entityManager.unwrap(Session.class);
+    //@RequestMapping(value = "/edificios_tabla", method = RequestMethod.GET)
 
     public EdificioController() throws SQLException {
     }
 
-    @GetMapping({"/edificios",""})
+    @GetMapping({"/edificios_tabla",""})
     public List<Object> findAll() throws Exception {
-        Session session = entityManager.unwrap(Session.class);
-        return edificioService.findAll(session);
+        return edificioService.findAll();
+
     }
+   /*@param clienteId id del cliente a buscar;
+     *@return;
+     *agregar mapping x id y x parametroid
+    */
+
 
     /**
      * @param edificio
@@ -55,10 +60,26 @@ public class EdificioController {
         edificioService.save(edificio);
         return new ResponseEntity<>(edificio, HttpStatus.CREATED);
 
-        return new ResponseEntity<>(edificio, HttpStatus.CREATED);
+
     }
 
-    @DeleteMapping("edificios/{edificioId}")
+    @PutMapping("/edificios_tabla/{edificioId}")
+    public ResponseEntity<?> updateCliente(@PathVariable int edificioId, @RequestBody Edificio edificio) {
+
+        Edificio edifOld = edificioService.findById(clienteId);
+
+        if (clienteOld == null) {
+            String mensaje = "Cliente no encontrado con ID: " + clienteId;
+            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
+        }
+
+        // este metodo actualizará al cliente enviado
+        clienteService.update(clienteId, cliente);
+
+        return new ResponseEntity<>(cliente, HttpStatus.OK);
+    }
+
+    @DeleteMapping("edificios_tabla/{edificioId}")
     public ResponseEntity<String> deleteEdificios(@PathVariable int edificioId) throws Exception {
         Edificio res = currentSession.get(Edificio.class, edificioId);
         if (res == null) {
