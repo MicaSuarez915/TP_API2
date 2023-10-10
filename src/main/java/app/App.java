@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,8 @@ public class App {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		Configuration conf = new Configuration().configure();
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationConfiguration.xml");
+		
 		conf.addAnnotatedClass(Usuario.class);
 		conf.addAnnotatedClass(Duenio.class);
 		conf.addAnnotatedClass(Inquilino.class);

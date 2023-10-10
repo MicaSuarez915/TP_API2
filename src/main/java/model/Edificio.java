@@ -38,7 +38,7 @@ public class Edificio {
 		return direccion;
 	}
 
-	public void setDireccion(String direccion) {
+	public void setDireccion() {
 		this.direccion = direccion;
 	}
 
