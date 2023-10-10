@@ -44,11 +44,16 @@ public class EdificioController {
         return edificioService.findAll(session);
     }
 
-    @PostMapping("/edificios")
-    public ResponseEntity<Object> addCliente(@RequestBody Edificio edificio, Session session) throws Exception {
+    /**
+     * @param edificio
+     * @return
+     */
 
-        // Este metodo guardará al cliente enviado
-        IEdificioService.save(session);
+
+    @PostMapping("/edificios_tabla")
+    public ResponseEntity<Object> addEdificio(@RequestBody Edificio edificio) {
+        edificioService.save(edificio);
+        return new ResponseEntity<>(edificio, HttpStatus.CREATED);
 
         return new ResponseEntity<>(edificio, HttpStatus.CREATED);
     }

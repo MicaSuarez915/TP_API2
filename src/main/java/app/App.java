@@ -35,9 +35,9 @@ public class App {
 		SessionFactory sf = conf.buildSessionFactory();
 		Session session = sf.openSession();
 
-		DaoDuenio dueños= new DaoDuenio();
-		dueños.save(session);
-		dueños.gelAll(session);
+		DaoDuenio duenios= new DaoDuenio();
+		duenios.save(session);
+		duenios.gelAll(session);
 
 
 		DaoAreaComun areaComun= new DaoAreaComun();

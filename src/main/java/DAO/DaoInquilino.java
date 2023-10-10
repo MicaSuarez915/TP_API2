@@ -4,7 +4,10 @@ import model.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceContext;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -50,5 +53,33 @@ public class DaoInquilino implements Daos{
             session.getTransaction().commit();
         }
 
+    }
+
+    @PersistenceContext
+
+    @Transactional(readOnly = true)
+    public Inquilino findUser(String username, String password, Session session) {
+
+        Query<Inquilino> theQuery = session.createQuery("FROM Inquilino WHERE nombreUsuario=:username", Inquilino.class);
+        theQuery.setParameter("username", username);
+
+        Inquilino user = theQuery.uniqueResult();
+
+        if(user != null && checkPassword(password, user.getContrasenia())) {
+            return user;
+        } else {
+            return null;
+        }
+    }
+
+    private boolean checkPassword(String password, String passwordDB) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        //String hashedPassword = passwordEncoder.encode(password);
+        System.out.println("Password: " + password);
+        //System.out.println("hashedPassword: " + hashedPassword);
+        System.out.println("passwordDB: " + passwordDB);
+        boolean isPasswordMatch = passwordEncoder.matches(password, passwordDB);
+
+        return isPasswordMatch;
     }
 }
