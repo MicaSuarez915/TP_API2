@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import model.Edificio;
+import model.*;
 
 public interface IEdificioService {
     public List<Object> findAll(Session session) throws Exception;

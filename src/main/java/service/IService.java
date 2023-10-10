@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import model.Edificio;
 import org.hibernate.Session;
 
 public interface IService {
@@ -9,4 +10,5 @@ public interface IService {
 
 
     public void deleteById(Session session, int id) throws Exception;
+
 }

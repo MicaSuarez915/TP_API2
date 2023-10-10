@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import org.hibernate.Session;
 
-import model.Edificio;
+import model.*;
 
 @Service
 public class EdificioServiceImpl implements IEdificioService{
