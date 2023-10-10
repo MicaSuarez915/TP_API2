@@ -52,8 +52,9 @@ public class DaoEdificio implements Daos{
     }
 
 
-    public void delete(Session session) throws Exception {
-        Edificio res = session.get(Edificio.class, 3);
+
+    public static void delete(Session session, int id) throws Exception {
+        Edificio res = session.get(Edificio.class, id);
         if (res != null) {
             session.beginTransaction();
             session.delete(res);

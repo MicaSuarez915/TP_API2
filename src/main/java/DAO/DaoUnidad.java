@@ -1,6 +1,7 @@
 package DAO;
 
 import model.AreaComun;
+import model.Duenio;
 import model.Unidad;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -42,9 +43,8 @@ public class DaoUnidad implements Daos{
         session.update(unidad);
     }
 
-    @Override
-    public void delete(Session session) throws Exception {
-        Unidad res = session.get(Unidad.class, 3);
+    public static void delete(Session session, int id) throws Exception {
+        Unidad res = session.get(Unidad.class, id);
         if (res != null) {
             session.beginTransaction();
             session.delete(res);

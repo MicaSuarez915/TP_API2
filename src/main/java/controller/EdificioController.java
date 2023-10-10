@@ -53,18 +53,19 @@ public class EdificioController {
         return new ResponseEntity<>(edificio, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("edificios/{edificioId}")
     public ResponseEntity<String> deleteEdificios(@PathVariable int edificioId) throws Exception {
+        Edificio res = currentSession.get(Edificio.class, edificioId);
+        if (res == null) {
+            String mensaje = "edificio no encontrado: ";
+            return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
+        }else{
+            DaoEdificio.delete(currentSession,edificioId);
 
-       // DaoEdificio.delete(currentSession);
+            // Esto método, recibira el id de un edificio por URL y se borrará de la bd.
+            String mensaje = "Edificio eliminado [edificioId = " + edificioId + "]";
+            return new ResponseEntity<String>(mensaje, HttpStatus.NO_CONTENT);
+        }
 
-        //if (edificio == null) {
-          //  String mensaje = "edificio no encontrado: ";
-            //return new ResponseEntity<>(mensaje, HttpStatus.NOT_FOUND);
-        //}
-
-
-        // Esto método, recibira el id de un cliente por URL y se borrará de la bd.
-        String mensaje = "Edificio eliminado [edificioId = " + edificioId + "]";
-        return new ResponseEntity<String>(mensaje, HttpStatus.NO_CONTENT);
 
 }}

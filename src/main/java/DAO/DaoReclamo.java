@@ -47,9 +47,8 @@ public class  DaoReclamo implements Daos{
         session.update(reclamo);
     }
 
-    @Override
-    public void delete(Session session) throws Exception {
-        Reclamo res = session.get(Reclamo.class, 3);
+    public static void delete(Session session, int id) throws Exception {
+        Reclamo res = session.get(Reclamo.class, id);
         if (res != null) {
             session.beginTransaction();
             session.delete(res);

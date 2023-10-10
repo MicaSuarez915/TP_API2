@@ -11,6 +11,9 @@ public interface Daos
        List<Object> gelAll(Session session) throws Exception;
         void save(Session session) throws Exception;
         void update(Session session, Object obj) throws Exception;
-        void delete(Session session) throws Exception;
+
+    static void delete(Session session, int id) throws Exception {
+
+    }
 
 }

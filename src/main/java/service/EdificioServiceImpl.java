@@ -36,8 +36,8 @@ public class EdificioServiceImpl implements IEdificioService{
     }
 
     @Override
-    public void deleteById(Session session) throws Exception {
-        edificioDao.delete(session);
+    public void deleteById(Session session, int id) throws Exception {
+        Daos.delete(session, id);
     }
 
 }

@@ -1,9 +1,6 @@
 package DAO;
 
-import model.AreaComun;
-import model.Edificio;
-import model.Inquilino;
-import model.Usuario;
+import model.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -45,13 +42,13 @@ public class DaoInquilino implements Daos{
         session.update(inq);
     }
 
-    @Override
-    public void delete(Session session) throws Exception {
-        Edificio res = session.get(Edificio.class, 3);
+    public static void delete(Session session, int id) throws Exception {
+        Duenio res = session.get(Duenio.class, id);
         if (res != null) {
             session.beginTransaction();
             session.delete(res);
             session.getTransaction().commit();
         }
+
     }
 }

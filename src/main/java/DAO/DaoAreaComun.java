@@ -40,9 +40,9 @@ public class DaoAreaComun implements Daos {
         session.update(areaComun);
     }
 
-    @Override
-    public void delete(Session session) throws Exception {
-        AreaComun res = session.get(AreaComun.class, 3);
+
+    public static void delete(Session session, int id) throws Exception {
+        AreaComun res = session.get(AreaComun.class, id);
         if (res != null) {
             session.beginTransaction();
             session.delete(res);

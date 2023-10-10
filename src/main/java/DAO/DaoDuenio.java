@@ -47,9 +47,9 @@ public class DaoDuenio implements Daos{
 
     }
 
-    @Override
-    public void delete(Session session) throws Exception {
-        Duenio res = session.get(Duenio.class, 3);
+
+    public static void delete(Session session, int id) throws Exception {
+        Duenio res = session.get(Duenio.class, id);
         if (res != null) {
             session.beginTransaction();
             session.delete(res);
