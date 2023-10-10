@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//// import org.springframework.stereotype.Component;
+//@Component
+
 @Entity
 @Table(name="usuarios_tabla")
 @DiscriminatorValue("Inquilino")

@@ -5,6 +5,10 @@ import java.util.List;
 
 import javax.persistence.*;
 
+// @Component
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Qualifier;
+// import org.springframework.stereotype.Component;
 @Entity
 @Table(name="edificios_tabla")
 public class Edificio {
@@ -15,11 +19,11 @@ public class Edificio {
 	private int id;
 	private String direccion;
 	@OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL)
+	//@Autowired
 	private List<Unidad> unidades = new ArrayList<Unidad>();
 	@OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL)
+	//@Autowired
 	private List<AreaComun> areasComunes =  new ArrayList<AreaComun>();
-
-
 
 	public Edificio() {
 		// TODO Auto-generated constructor stub

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+//// import org.springframework.stereotype.Component;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
